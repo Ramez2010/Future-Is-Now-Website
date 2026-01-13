@@ -357,6 +357,10 @@ section {
   color: var(--muted);
 }
 
+.muted {
+  color: var(--muted);
+}
+
 .card-grid {
   display: grid;
   grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
@@ -403,6 +407,16 @@ section {
 .legal h2 {
   color: var(--text);
   margin-top: 10px;
+}
+
+.legal ul {
+  padding-left: 18px;
+  display: grid;
+  gap: 8px;
+}
+
+.last-updated {
+  font-size: 0.95rem;
 }
 
 .contact-grid {
@@ -481,6 +495,14 @@ textarea:focus,
   flex-wrap: wrap;
   gap: 16px;
   color: var(--muted);
+}
+
+.footer-contact {
+  color: var(--muted);
+}
+
+.footer-contact a {
+  color: var(--primary);
 }
 
 .footer-copy {
