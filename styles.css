@@ -92,8 +92,8 @@ section {
 }
 
 .logo {
-  width: 42px;
-  height: 42px;
+  width: 140px;
+  height: 56px;
   object-fit: contain;
 }
 
@@ -156,8 +156,9 @@ section {
 }
 
 .btn-primary {
-  background: linear-gradient(120deg, var(--primary), #1aa7ff);
-  color: #04121f;
+  background: linear-gradient(120deg, #2dd2ff, #0aa7ff);
+  color: #02101b;
+  border: 1px solid rgba(255, 255, 255, 0.25);
   box-shadow: 0 12px 30px rgba(41, 199, 255, 0.35);
 }
 
@@ -551,6 +552,10 @@ textarea:focus,
 }
 
 @media (max-width: 600px) {
+  .logo {
+    width: 110px;
+    height: 44px;
+  }
   .hero {
     padding-top: 60px;
   }
