@@ -3,9 +3,9 @@
 :root {
   --bg: #070a12;
   --bg-alt: #0b1220;
-  --card: rgba(15, 25, 45, 0.7);
   --glass: rgba(12, 20, 36, 0.55);
-  --primary: #29c7ff;
+  --primary: #1aa7ff;
+  --primary-dark: #0b6fb4;
   --secondary: #7a5cff;
   --text: #f6f7fb;
   --muted: #b8c2d8;
@@ -38,7 +38,7 @@ body {
   background-image: linear-gradient(transparent 93%, rgba(45, 90, 150, 0.25) 100%),
     linear-gradient(90deg, transparent 93%, rgba(45, 90, 150, 0.25) 100%);
   background-size: 60px 60px;
-  opacity: 0.2;
+  opacity: 0.18;
   pointer-events: none;
   z-index: 0;
 }
@@ -87,8 +87,6 @@ section {
   display: flex;
   align-items: center;
   gap: 16px;
-  font-weight: 700;
-  letter-spacing: 0.3px;
 }
 
 .logo {
@@ -96,11 +94,6 @@ section {
   height: 126px;
   object-fit: contain;
   object-position: left center;
-  padding: 0;
-  border-radius: 0;
-  background: transparent;
-  border: none;
-  box-shadow: none;
 }
 
 .menu-toggle {
@@ -135,11 +128,13 @@ section {
 }
 
 .nav-links a.active,
+.nav-links a[aria-current="page"],
 .nav-links a:hover {
   color: var(--text);
 }
 
-.nav-links a.active::after {
+.nav-links a.active::after,
+.nav-links a[aria-current="page"]::after {
   content: "";
   position: absolute;
   left: 0;
@@ -162,7 +157,7 @@ section {
 }
 
 .btn-primary {
-  background: linear-gradient(120deg, #1294d6, #0b6fb4);
+  background: linear-gradient(120deg, #1294d6, var(--primary-dark));
   color: #e9f6ff;
   border: 1px solid rgba(30, 150, 220, 0.6);
   box-shadow: 0 12px 30px rgba(41, 199, 255, 0.35);
@@ -171,11 +166,6 @@ section {
 .btn-secondary {
   background: rgba(30, 50, 90, 0.35);
   border-color: rgba(90, 140, 220, 0.45);
-}
-
-.btn-ghost {
-  background: transparent;
-  border-color: rgba(120, 170, 240, 0.4);
 }
 
 .btn:hover {
@@ -190,9 +180,13 @@ section {
   padding: 90px 6vw 60px;
 }
 
+.hero.compact {
+  padding: 60px 6vw 20px;
+}
+
 .hero-content h1 {
   font-family: "Rajdhani", sans-serif;
-  font-size: clamp(2.5rem, 4vw, 4.2rem);
+  font-size: clamp(2.4rem, 4vw, 4rem);
   line-height: 1.1;
   margin-bottom: 16px;
 }
@@ -219,13 +213,12 @@ section {
 
 .hero-visual {
   position: relative;
-  min-height: 280px;
+  min-height: 260px;
 }
 
 .glow {
   position: absolute;
   border-radius: 50%;
-  filter: blur(0px);
 }
 
 .glow.orb {
@@ -235,15 +228,6 @@ section {
   top: 10px;
   right: 10%;
   box-shadow: 0 0 60px rgba(41, 199, 255, 0.6);
-}
-
-.glow.ring {
-  width: 280px;
-  height: 280px;
-  border: 1px solid rgba(122, 92, 255, 0.6);
-  top: 30px;
-  left: 0;
-  box-shadow: 0 0 40px rgba(122, 92, 255, 0.4);
 }
 
 .glow.beam {
@@ -355,25 +339,12 @@ section {
   border-left: 14px solid rgba(41, 199, 255, 0.9);
 }
 
-.trust-strip {
-  display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(160px, 1fr));
-  gap: 12px;
-  padding: 24px 6vw;
-  background: rgba(7, 12, 20, 0.6);
-  border-top: 1px solid rgba(70, 110, 180, 0.2);
-  border-bottom: 1px solid rgba(70, 110, 180, 0.2);
-  text-align: center;
-  font-weight: 600;
-  color: var(--muted);
-}
-
 .section {
   padding: 70px 6vw;
 }
 
 .section-header {
-  max-width: 700px;
+  max-width: 720px;
   margin-bottom: 36px;
 }
 
@@ -392,14 +363,6 @@ section {
   gap: 24px;
 }
 
-.card-grid.two {
-  grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
-}
-
-.card-grid.three {
-  grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
-}
-
 .card {
   background: var(--glass);
   border: 1px solid var(--border);
@@ -416,62 +379,30 @@ section {
   box-shadow: 0 18px 40px rgba(10, 20, 40, 0.5);
 }
 
-.card h3 {
-  margin-bottom: 12px;
-}
-
-.text-link {
-  margin-top: 12px;
-  display: inline-flex;
-  color: var(--primary);
-}
-
-.feature {
+.cta {
+  margin: 0 6vw 70px;
+  padding: 30px 32px;
+  border-radius: 20px;
+  background: rgba(10, 18, 32, 0.65);
+  border: 1px solid var(--border);
   display: flex;
-  flex-direction: column;
+  flex-wrap: wrap;
+  align-items: center;
   justify-content: space-between;
   gap: 20px;
 }
 
-.feature-list {
-  list-style: none;
+.legal {
+  max-width: 900px;
+  margin: 0 auto 60px;
   display: grid;
-  gap: 8px;
+  gap: 18px;
   color: var(--muted);
 }
 
-.feature-list li::before {
-  content: "+";
-  color: var(--primary);
-  margin-right: 8px;
-}
-
-.card-actions {
-  display: flex;
-  flex-wrap: wrap;
-  gap: 12px;
-}
-
-.timeline {
-  display: grid;
-  gap: 18px;
-}
-
-.timeline-step {
-  display: grid;
-  grid-template-columns: auto 1fr;
-  gap: 16px;
-  align-items: start;
-  padding: 20px;
-  background: rgba(10, 18, 32, 0.65);
-  border-radius: 16px;
-  border: 1px solid var(--border);
-}
-
-.step-number {
-  font-family: "Rajdhani", sans-serif;
-  font-size: 1.4rem;
-  color: var(--primary);
+.legal h2 {
+  color: var(--text);
+  margin-top: 10px;
 }
 
 .contact-grid {
@@ -542,6 +473,7 @@ textarea:focus,
   display: flex;
   gap: 16px;
   align-items: center;
+  flex-wrap: wrap;
 }
 
 .footer-links {
@@ -549,10 +481,6 @@ textarea:focus,
   flex-wrap: wrap;
   gap: 16px;
   color: var(--muted);
-}
-
-.footer-contact a {
-  color: var(--primary);
 }
 
 .footer-copy {
@@ -603,17 +531,6 @@ textarea:focus,
   transform: translateX(-50%) translateY(0);
 }
 
-.placeholder {
-  text-align: center;
-  color: var(--muted);
-  padding: 40px 20px;
-  background: rgba(10, 18, 32, 0.6);
-}
-
-.product-page .navbar {
-  padding: 20px 6vw;
-}
-
 [data-reveal] {
   opacity: 0;
   transform: translateY(18px);
@@ -625,7 +542,7 @@ textarea:focus,
   transform: translateY(0);
 }
 
-@media (max-width: 900px) {
+@media (max-width: 980px) {
   .menu-toggle {
     display: flex;
   }
@@ -661,17 +578,10 @@ textarea:focus,
   }
 }
 
-@media (max-width: 600px) {
-  .symbol-network,
-  .symbol-flow {
-    display: none;
-  }
+@media (max-width: 700px) {
   .logo {
-    width: 345px;
-    height: 102px;
-  }
-  .hero {
-    padding-top: 60px;
+    width: 300px;
+    height: 90px;
   }
 
   .hero-actions {
@@ -679,12 +589,8 @@ textarea:focus,
     align-items: stretch;
   }
 
-  .footer-brand {
-    flex-direction: column;
-    align-items: flex-start;
-  }
-
-  .trust-strip {
-    text-align: left;
+  .symbol-network,
+  .symbol-flow {
+    display: none;
   }
 }

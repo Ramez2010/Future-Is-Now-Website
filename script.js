@@ -42,8 +42,8 @@ if (backToTop) {
   });
 }
 
-const toast = document.getElementById('toast');
 const contactForm = document.getElementById('contact-form');
+const toast = document.getElementById('toast');
 if (contactForm) {
   contactForm.addEventListener('submit', (event) => {
     event.preventDefault();
@@ -70,9 +70,21 @@ if (contactForm) {
   });
 }
 
-const sections = document.querySelectorAll('section[id]');
-const navAnchors = document.querySelectorAll('.nav-links a[href^="#"]');
+const hashLinks = document.querySelectorAll('a[href^="#"]');
+hashLinks.forEach((link) => {
+  link.addEventListener('click', (event) => {
+    const targetId = link.getAttribute('href');
+    const target = document.querySelector(targetId);
+    if (target) {
+      event.preventDefault();
+      target.scrollIntoView({ behavior: 'smooth' });
+      history.replaceState(null, '', targetId);
+    }
+  });
+});
 
+const sections = document.querySelectorAll('section[id]');
+const navAnchors = document.querySelectorAll('.nav-links a[href^="index.html#"], .nav-links a[href^="#"]');
 if (sections.length && navAnchors.length) {
   const sectionObserver = new IntersectionObserver(
     (entries) => {
@@ -80,7 +92,9 @@ if (sections.length && navAnchors.length) {
         if (entry.isIntersecting) {
           const id = entry.target.getAttribute('id');
           navAnchors.forEach((anchor) => {
-            anchor.classList.toggle('active', anchor.getAttribute('href') === `#${id}`);
+            const href = anchor.getAttribute('href');
+            const target = href.includes('#') ? href.split('#')[1] : null;
+            anchor.classList.toggle('active', target === id);
           });
         }
       });
