@@ -1,0 +1,149 @@
+<!DOCTYPE html>
+<html lang="en" data-setup-fee="800" data-price-per-employee-month="2" data-annual-discount="0.10" data-currency="USD">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Order | Future Is Now</title>
+  <meta name="description" content="Order and simulate payment success for licensing automation." />
+  <meta property="og:title" content="Order | Future Is Now" />
+  <meta property="og:description" content="Order and simulate payment success for licensing automation." />
+  <meta property="og:type" content="website" />
+  <meta property="og:image" content="assets/og-image.png" />
+  <meta property="og:url" content="./order.html" />
+  <meta name="twitter:card" content="summary_large_image" />
+  <meta name="twitter:title" content="Order | Future Is Now" />
+  <meta name="twitter:description" content="Order and simulate payment success for licensing automation." />
+  <meta name="twitter:image" content="assets/og-image.png" />
+  <link rel="icon" href="assets/logo.png" type="image/png" />
+  <link rel="stylesheet" href="styles.css" />
+</head>
+<body>
+  <div class="bg-grid" aria-hidden="true"></div>
+  <header class="site-header">
+    <nav class="navbar" aria-label="Primary">
+      <a class="brand" href="index.html" aria-label="Future Is Now">
+        <img src="assets/logo.png" alt="Future Is Now logo" class="logo" />
+      </a>
+      <button class="menu-toggle" type="button" aria-label="Toggle menu" aria-expanded="false" aria-controls="nav-links">
+        <span></span>
+        <span></span>
+      </button>
+      <div class="nav-links" id="nav-links">
+        <a href="index.html">Home</a>
+        <a href="product-attendance.html">Product</a>
+        <a href="order.html" aria-current="page">Order</a>
+        <a href="contact.html">Contact</a>
+      </div>
+    </nav>
+  </header>
+
+  <main>
+    <section class="hero compact">
+      <div class="hero-content" data-reveal>
+        <p class="eyebrow">Order</p>
+        <h1>Odoo FIN Attendance App</h1>
+        <p class="subheadline">Fill the order details to calculate pricing (10% discount on 1-year for the first subscription), then trigger your n8n webhook to issue a license and send the email.</p>
+      </div>
+    </section>
+
+    <section class="section">
+      <div class="card-grid" data-reveal>
+        <article class="card">
+          <h3>Order details</h3>
+          <form class="contact-form" id="checkout-form">
+            <label>
+              Customer type
+              <select name="customer_type" required>
+                <option value="new" selected>New customer</option>
+                <option value="current">Current customer (renewal)</option>
+              </select>
+            </label>
+            <label id="current-license-label" hidden>
+              Current license key
+              <input type="text" name="current_license_key" placeholder="FIN-XXXX-XXXX-XXXX-XXXXX" />
+              <span class="form-hint">Required for renewals.</span>
+            </label>
+            <label>
+              Customer email
+              <input type="email" name="customer_email" required autocomplete="email" placeholder="client@company.com" />
+            </label>
+            <label>
+              Plan
+              <select name="plan" required>
+                <option value="6_months">6 months</option>
+                <option value="1_year">1 year</option>
+              </select>
+            </label>
+            <label>
+              Number of employees
+              <input type="number" name="employee_limit" required min="5" step="1" value="5" />
+              <span class="form-hint">Minimum 5 employees.</span>
+              <span class="form-warning" id="employee-warning" role="status" aria-live="polite" hidden>
+                Minimum is 5 employees. Pricing will be calculated using 5.
+              </span>
+            </label>
+            <div class="checkout-summary">
+              <p><span class="muted">Setup fee</span><strong id="setup-fee">Not configured</strong></p>
+              <p><span class="muted">Unit price</span><strong id="unit-price">Not configured</strong></p>
+              <p><span class="muted">Months</span><strong id="plan-months">-</strong></p>
+              <p><span class="muted">Subtotal</span><strong id="subtotal-price">Not configured</strong></p>
+              <p><span class="muted">Discount</span><strong id="discount-price">-</strong></p>
+              <p><span class="muted">Total</span><strong id="total-price">Not configured</strong></p>
+            </div>
+            <div class="hero-actions">
+              <button class="btn btn-secondary" type="button" id="calculate-total">Calculate total</button>
+              <button class="btn btn-primary" type="submit">Generate webhook request</button>
+            </div>
+          </form>
+          <p class="muted checkout-note">To avoid exposing secrets on a static website, this page generates a secure request you can run from your terminal or n8n test tools.</p>
+        </article>
+
+        <article class="card">
+          <h3>n8n webhook (secured)</h3>
+          <form class="contact-form" id="webhook-config-form">
+            <label>
+              Production Webhook URL
+              <input type="url" name="webhook_url" required placeholder="https://n8n.futureisnowsolutions.cloud/webhook/issue-license" />
+            </label>
+            <label>
+              Header secret (x-fin-webhook-secret)
+              <input type="password" name="webhook_secret" required placeholder="Paste your secret here (local only)" />
+            </label>
+          </form>
+
+          <div class="checkout-output">
+            <p class="muted">cURL command</p>
+            <pre class="code-block" id="curl-output">Fill the form to generate a request.</pre>
+            <p class="muted">JSON payload</p>
+            <pre class="code-block" id="json-output">{}</pre>
+          </div>
+        </article>
+      </div>
+    </section>
+  </main>
+
+  <footer class="footer">
+    <div class="footer-brand">
+      <img src="assets/logo.png" alt="Future Is Now logo" class="logo" />
+      <div>
+        <strong>Future Is Now</strong>
+        <p>Automation-first. AI-ready.</p>
+      </div>
+    </div>
+    <div class="footer-links">
+      <a href="privacy.html">Privacy Policy</a>
+      <a href="terms.html">Terms of Service</a>
+      <a href="refund.html">Refund Policy</a>
+      <a href="contact.html">Contact / Support</a>
+    </div>
+    <div class="footer-contact">
+      <p>Email</p>
+      <a href="mailto:futureisnow.solutions@gmail.com">futureisnow.solutions@gmail.com</a>
+    </div>
+    <p class="footer-copy">Â© 2026 Future Is Now. All rights reserved.</p>
+  </footer>
+
+  <button class="back-to-top" id="back-to-top" aria-label="Back to top">?</button>
+  <script src="script.js"></script>
+</body>
+</html>
