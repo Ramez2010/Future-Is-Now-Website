@@ -371,6 +371,23 @@ section {
   gap: 24px;
 }
 
+.screenshots {
+  display: grid;
+  gap: 24px;
+}
+
+.screenshot-row {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(220px, 1fr));
+  gap: 24px;
+}
+
+@media (max-width: 900px) {
+  .screenshot-row {
+    grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+  }
+}
+
 .screenshot-grid {
   display: grid;
   grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
@@ -406,6 +423,14 @@ section {
   object-fit: contain;
   background: rgba(5, 10, 25, 0.25);
   transition: transform 0.2s ease, filter 0.2s ease;
+}
+
+.screenshot-portrait img {
+  max-height: 520px;
+}
+
+.screenshot-landscape img {
+  max-height: 320px;
 }
 
 .screenshot:hover img {
