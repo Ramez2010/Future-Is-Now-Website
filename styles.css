@@ -83,8 +83,8 @@ section {
   display: flex;
   align-items: center;
   justify-content: space-between;
-  padding: 18px 6vw;
-  gap: 20px;
+  padding: 10px 6vw;
+  gap: 16px;
 }
 
 .brand {
@@ -98,6 +98,11 @@ section {
   height: 126px;
   object-fit: contain;
   object-position: left center;
+}
+
+.site-header .logo {
+  width: 260px;
+  height: 72px;
 }
 
 .menu-toggle {
@@ -788,9 +793,9 @@ textarea:focus,
 }
 
 @media (max-width: 700px) {
-  .logo {
-    width: 300px;
-    height: 90px;
+  .site-header .logo {
+    width: 180px;
+    height: 50px;
   }
 
   .hero-actions {
